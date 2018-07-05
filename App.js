@@ -1,37 +1,32 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { createBottomTabNavigator } from 'react-navigation'
+import { StyleSheet, Text, View, Container } from 'react-native';
+import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'
 import Homescreen from './screens/Homescreen'
 import Mapscreen from './screens/Mapscreen'
+import CafeDetail from './screens/CafeDetail'
 import { Ionicons } from '@expo/vector-icons';
 
 
 export default class App extends React.Component {
+
+  constructor() {
+    super();
+  }
   render() {
     return (
-      <AppNavigator />
+        <RootStack />
+
     );
   }
 }
 
-const AppNavigator = createBottomTabNavigator({
-  Home: {
-    screen: Homescreen,
-    navigationOptions: () => ({
-      showIcons:true,
-      tabBarIcon: () => (
-        <Ionicons name="ios-home" size={32} color={'#4080ff'} />
-      )
-    })
+const RootStack = createStackNavigator(
+  {
+    home:Homescreen,
+    Details: CafeDetail,
   },
-  Map: { screen: Mapscreen, 
-    navigationOptions: () => ({
-      showIcons:true,
-      tabBarIcon: () => (
-        <Ionicons name="ios-compass" size={32} color={'#4080ff'} />
-      )
-    })}
-})
+);
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
