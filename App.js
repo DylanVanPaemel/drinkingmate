@@ -14,16 +14,31 @@ export default class App extends React.Component {
   }
   render() {
     return (
-        <RootStack />
+      <RootStack />
 
     );
   }
 }
 
+//de stack navigator om naar andere schermen te navigeren
 const RootStack = createStackNavigator(
   {
-    home:Homescreen,
-    Details: CafeDetail,
+
+    Home: {
+      screen: Homescreen,
+      navigationOptions: ({ navigation }) => ({
+        title: "Acties",
+      }),
+    },
+    Map: {
+      screen: Mapscreen,
+      navigationOptions: ({ navigation }) => ({
+        title: "Kaart",
+        headerLeft: null
+      }),
+    },
+    Details:CafeDetail
+
   },
 );
 
@@ -35,3 +50,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+

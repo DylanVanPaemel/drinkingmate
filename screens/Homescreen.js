@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Content, Text, Header, Title, Button, Icon, Card, CardItem, Thumbnail, Fab } from 'native-base';
+import { Container, Content, Text, Header, Title, Button, Icon, Card, CardItem, Thumbnail, Fab, Footer, FooterTab } from 'native-base';
 import {
     View,
     ListView,
@@ -9,23 +9,20 @@ import {
     TouchableOpacity
 } from "react-native";
 import firebaseApp from '../database/config'
-import Mapscreen from '../screens/Mapscreen';
-import { createBottomTabNavigator } from 'react-navigation'
 import { WaveIndicator } from 'react-native-indicators';
 
+//startscherm waar alle cafes in een lijst op het scherm verschijnen 
 class Homescreen extends Component {
 
-    static navigationOptions = ({ navigation }) => ({
 
-        title: 'Vind een actie',
-    });
 
     constructor() {
+
         super();
         let ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
         this.state = {
             itemDataSource: ds,
-            isLoading: false,
+            isLoading: true,
             active: 'false',
         }
         this.itemsRef = this.getRef().child('cafes');
@@ -35,24 +32,21 @@ class Homescreen extends Component {
 
     }
 
+    //gegevens van de database ophalen
     getRef() {
+        this.setState({ isLoading: false })
         return firebaseApp.database().ref();
 
     }
 
-    //View maken om weer te geven
-    /*     componentsWillMount() {
-            this.getCafes(this.itemsRef);
-            this.setState({ isLoading: !this.state.isLoading })
-    
-        } */
 
+    //mount-methode om cafes in een array te steken
     componentDidMount() {
         this.getCafes(this.itemsRef);
-        this.setState({ isLoading: !this.state.isLoading })
     }
 
 
+    //cafes in een array steken in 'state' dmv lambda's 
     getCafes(itemsRef) {
 
         itemsRef.on('value', (allecafes) => {
@@ -69,18 +63,18 @@ class Homescreen extends Component {
             });
             this.setState({
                 itemDataSource: this.state.itemDataSource.cloneWithRows(cafes)
-
             });
 
         });
 
     }
 
-
+ //wanneer men op een cafe klikt
     onPress(cafe) {
         this.props.navigation.navigate('Details', { cafe: cafe });
     }
 
+    // Cafes weergeven op het scherm 
     renderRow(item) {
         if (Platform.OS === 'android') {
             return (
@@ -121,13 +115,15 @@ class Homescreen extends Component {
 
     }
 
+    //Renderen van het scherm
     render() {
         return (
             <Container>
                 <ListView dataSource={this.state.itemDataSource} renderRow={this.renderRow}></ListView>
-                <View show={this.state.isLoading} style={{ flex: 1 }}>
-                    <WaveIndicator color={'#4080ff'} waveMode='outline' />
-                </View>
+                {this.state.isLoading == true ?
+                    <View show={this.state.isLoading} style={{ flex: 1 }}>
+                        <WaveIndicator color={'#4080ff'} waveMode='outline' />
+                    </View> : null}
                 <View style={{ flex: 1 }}>
                     <Fab
                         active={this.state.active}
@@ -148,29 +144,24 @@ class Homescreen extends Component {
                         </Button> */}
                     </Fab>
                 </View>
+                <Footer >
+                    <FooterTab>
+                        <Button active >
+                            <Icon name='ios-pricetags' />
+                            <Text>Acties</Text>
+                        </Button>>
+                        <Button onPress={() => this.props.navigation.navigate('Map')} >
+                            <Icon name='ios-compass' />
+                            <Text> Kaart</Text>
+                        </Button>
+                        <Button>
+                            <Icon name='ios-contact-outline' />
+                            <Text> Mijn Profiel</Text>
+                        </Button>
+                    </FooterTab>
+                </Footer>
             </Container>
         )
     }
 }
-
-const AppNavigator = createBottomTabNavigator({
-    Home: {
-        screen: Homescreen,
-        navigationOptions: () => ({
-            showIcons: true,
-            tabBarIcon: () => (
-                <Ionicons name="ios-home" size={32} color={'#4080ff'} />
-            )
-        })
-    },
-    Map: {
-        screen: Mapscreen,
-        navigationOptions: () => ({
-            showIcons: true,
-            tabBarIcon: () => (
-                <Ionicons name="ios-compass" size={32} color={'#4080ff'} />
-            )
-        })
-    }
-})
 export default Homescreen;

@@ -1,18 +1,29 @@
 import React from 'react';
 import { Text, View, Image, StyleSheet } from 'react-native';
 
+
+//Detailscherm van een cafe
 class CafeDetail extends React.Component {
 
 
 
     constructor() {
         super();
+        this.state = {
+            cafe: []
+        }
     }
 
     componentDidMount() {
-        console.log(this.props.navigation.state.params.cafe)
-    }
 
+        this.setState({
+            cafe: this.props.navigation.state.params.cafe
+        });
+
+        console.log(this.state.cafe)
+    }
+     
+    //weergeven van alle elementen op het scherm
     render() {
         return (
             <View style={styles.container}>
@@ -21,14 +32,14 @@ class CafeDetail extends React.Component {
                     <View>
                         <View style={styles.skyBlue}></View>
                         <View style={styles.imageWrapper}>
-                            <Image style={styles.image} source={{ uri: this.props.navigation.state.params.cafe.logo }} />
-                            <Text style={styles.name}>{this.props.navigation.state.params.cafe.naam} </Text>
+                            <Image style={styles.image} source={{ uri: this.state.cafe.logo }} />
+                            <Text style={styles.name}>{this.state.cafe.naam} </Text>
                         </View>
                     </View>
                     <View>
                         <View style={styles.metdataWrapper}>
                             <Text style={styles.metadata}>Beschrijving</Text>
-                            <Text style={styles.detailData}>{this.props.navigation.state.params.cafe.beschrijving}</Text>
+                            <Text style={styles.detailData}>{this.state.cafe.beschrijving}</Text>
                         </View>
                     </View>
                 </View>
