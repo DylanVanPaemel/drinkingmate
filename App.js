@@ -1,9 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View, Container } from 'react-native';
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'
-import Homescreen from './screens/Homescreen'
-import Mapscreen from './screens/Mapscreen'
+import Homescreen from './screens/Homescreen';
+import Mapscreen from './screens/Mapscreen';
 import CafeDetail from './screens/CafeDetail'
+import Profile from './screens/Profile'
 import { Ionicons } from '@expo/vector-icons';
 
 
@@ -34,6 +35,13 @@ const RootStack = createStackNavigator(
       screen: Mapscreen,
       navigationOptions: ({ navigation }) => ({
         title: "Kaart",
+        headerLeft: null
+      }),
+    },
+    Profile: {
+      screen: Profile,
+      navigationOptions: ({ navigation }) => ({
+        title: "Mijn Profiel",
         headerLeft: null
       }),
     },

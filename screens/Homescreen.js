@@ -22,7 +22,7 @@ class Homescreen extends Component {
         let ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
         this.state = {
             itemDataSource: ds,
-            isLoading: true,
+            Loaded: false,
             active: 'false',
         }
         this.itemsRef = this.getRef().child('cafes');
@@ -34,7 +34,6 @@ class Homescreen extends Component {
 
     //gegevens van de database ophalen
     getRef() {
-        this.setState({ isLoading: false })
         return firebaseApp.database().ref();
 
     }
@@ -76,6 +75,10 @@ class Homescreen extends Component {
 
     // Cafes weergeven op het scherm 
     renderRow(item) {
+        if(this.state.Loaded==false)
+        {
+            this.setState({ Loaded: true })
+        }
         if (Platform.OS === 'android') {
             return (
                 <TouchableNativeFeedback onPress={() => {
@@ -120,8 +123,8 @@ class Homescreen extends Component {
         return (
             <Container>
                 <ListView dataSource={this.state.itemDataSource} renderRow={this.renderRow}></ListView>
-                {this.state.isLoading == true ?
-                    <View show={this.state.isLoading} style={{ flex: 1 }}>
+                {this.state.Loaded == false ?
+                    <View show={this.state.Loaded} style={{ flex: 1 }}>
                         <WaveIndicator color={'#4080ff'} waveMode='outline' />
                     </View> : null}
                 <View style={{ flex: 1 }}>
@@ -154,7 +157,7 @@ class Homescreen extends Component {
                             <Icon name='ios-compass' />
                             <Text> Kaart</Text>
                         </Button>
-                        <Button>
+                        <Button  onPress={() => this.props.navigation.navigate('Profile')}>
                             <Icon name='ios-contact-outline' />
                             <Text> Mijn Profiel</Text>
                         </Button>

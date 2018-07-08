@@ -24,7 +24,7 @@ class Mapscreen extends Component {
                             <Icon name='ios-compass' />
                             <Text> Kaart</Text>
                         </Button>
-                        <Button>
+                        <Button onPress={() =>  this.props.navigation.navigate('Profile')}>
                             <Icon name='ios-contact-outline' />
                             <Text> Mijn Profiel</Text>
                         </Button>
