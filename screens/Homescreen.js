@@ -146,25 +146,13 @@ class Homescreen extends Component {
                             <Icon name="mail" />
                         </Button> */}
                     </Fab>
-                </View>
-                <Footer >
-                    <FooterTab>
-                        <Button active >
-                            <Icon name='ios-pricetags' />
-                            <Text>Acties</Text>
-                        </Button>>
-                        <Button onPress={() => this.props.navigation.navigate('Map')} >
-                            <Icon name='ios-compass' />
-                            <Text> Kaart</Text>
-                        </Button>
-                        <Button  onPress={() => this.props.navigation.navigate('Profile')}>
-                            <Icon name='ios-contact-outline' />
-                            <Text> Mijn Profiel</Text>
-                        </Button>
-                    </FooterTab>
-                </Footer>
+                </View>        
             </Container>
+
+            
         )
     }
+
+    
 }
 export default Homescreen;

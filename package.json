@@ -4,10 +4,15 @@
   "dependencies": {
     "expo": "^28.0.0",
     "firebase": "^5.2.0",
+    "mobx": "^5.0.3",
+    "mobx-react": "^5.2.3",
     "native-base": "^2.6.1",
     "react": "16.3.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-28.0.0.tar.gz",
     "react-native-indicators": "^0.13.0",
     "react-navigation": "^2.5.5"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-decorators-legacy": "^1.3.5"
   }
 }

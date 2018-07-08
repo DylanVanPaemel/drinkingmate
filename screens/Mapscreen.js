@@ -14,22 +14,6 @@ class Mapscreen extends Component {
                     <Text> dit is het Mapscherm</Text>
 
                 </View>
-                <Footer >
-                    <FooterTab>
-                        <Button onPress={() =>  this.props.navigation.navigate('Home')}>
-                            <Icon name='ios-pricetags' />
-                            <Text>Acties</Text>
-                        </Button>>
-                <Button active >
-                            <Icon name='ios-compass' />
-                            <Text> Kaart</Text>
-                        </Button>
-                        <Button onPress={() =>  this.props.navigation.navigate('Profile')}>
-                            <Icon name='ios-contact-outline' />
-                            <Text> Mijn Profiel</Text>
-                        </Button>
-                    </FooterTab>
-                </Footer>
             </Container>
         );
     }
