@@ -75,7 +75,7 @@ class Homescreen extends Component {
 
     // Cafes weergeven op het scherm 
     renderRow(item) {
-        if(this.state.Loaded==false)
+        if(this.state.Loaded)
         {
             this.setState({ Loaded: true })
         }
