@@ -5,7 +5,7 @@ import {
     StyleSheet,
     Alert
 } from "react-native";
-import auth from '../stores/auth.store'
+import auth from '../stores/auth.store';
 
 
 export default class Login extends Component {

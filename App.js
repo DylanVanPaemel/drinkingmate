@@ -5,22 +5,43 @@ import Homescreen from './screens/Homescreen'
 import Mapscreen from './screens/Mapscreen'
 import { Ionicons } from '@expo/vector-icons';
 import CafeDetail from './screens/CafeDetail';
-
+import { Root } from "native-base";
+import { Font, AppLoading } from "expo";
 import Login from './screens/Loginscreen'
 import Profile from './screens/Profilescreen'
 
 
- class App extends Component {
+class App extends Component {
 
   constructor() {
     super();
+    this.state = { loading: true };
   }
-  render() {
-    return (
-        <BottomBar />
 
+  async componentWillMount() {
+    await Font.loadAsync({
+      Roboto: require("native-base/Fonts/Roboto.ttf"),
+      Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
+    });
+    this.setState({ loading: false });
+  }
+
+  render() {
+
+    if (this.state.loading) {
+      return (
+        <Root>
+          <AppLoading />
+        </Root>
+      );
+    }
+    return (
+      <Root>
+        <BottomBar />
+      </Root>
     );
   }
+
 }
 
 const BottomBar = createBottomTabNavigator({
@@ -64,20 +85,22 @@ const BottomBar = createBottomTabNavigator({
       Login: {
         screen: Login,
         navigationOptions: ({ navigation }) => ({
-          title: "Login",
+          title: "Mijn Profiel",
+          gesturesEnabled: false,
         }),
       },
       Profile: {
         screen: Profile,
-       /*  navigationOptions: ({ navigation }) => ({
-          title: "Mijn profiel",
-          headerLeft: null
-        }), */
+        /*  navigationOptions: ({ navigation }) => ({
+           title: "Mijn profiel",
+           headerLeft: null
+         }), */
       }
 
     }),
     navigationOptions: ({ navigation }) => ({
       title: "Profiel",
+      gesturesEnabled: false,
       showIcons: true,
       tabBarIcon: () => (
         <Ionicons name="ios-contact-outline" size={32} color={'#4080ff'} />

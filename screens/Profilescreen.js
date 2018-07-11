@@ -12,20 +12,20 @@ export default class Profilescreen extends Component {
 
     constructor(props) {
         super(props)
-        const { auth } = this.props.stores
         
     }
     
     static navigationOptions = ({ navigation }) => ({
         title: "Mijn profiel",
         headerLeft: null,
+        gesturesEnabled: false,
     })
 
     render() {
         return (
             <Container>
                 <Content scrolleabled={false}>
-                    <Profile {...this.props} />
+                <Profile/>
                 </Content>
             </Container>
         );
