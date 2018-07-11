@@ -1,22 +1,23 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'
 import Homescreen from './screens/Homescreen'
 import Mapscreen from './screens/Mapscreen'
-import Profilescreen from './screens/Profile'
 import { Ionicons } from '@expo/vector-icons';
-
-import { Container, Content, Text, Header, Title, Button, Icon, Card, CardItem, Thumbnail, Fab, Footer, FooterTab } from 'native-base';
 import CafeDetail from './screens/CafeDetail';
 
-export default class App extends React.Component {
+import Login from './screens/Loginscreen'
+import Profile from './screens/Profilescreen'
+
+
+ class App extends Component {
 
   constructor() {
     super();
   }
   render() {
     return (
-      <BottomBar />
+        <BottomBar />
 
     );
   }
@@ -31,7 +32,7 @@ const BottomBar = createBottomTabNavigator({
           title: "Acties",
         }),
       },
-      Details:CafeDetail
+      Details: CafeDetail
     }),
     navigationOptions: ({ navigation }) => ({
       title: "Acties",
@@ -58,14 +59,22 @@ const BottomBar = createBottomTabNavigator({
       )
     }),
   },
-  Profile: {
+  Login: {
     screen: createStackNavigator({
-      Profile: {
-        screen: Profilescreen,
+      Login: {
+        screen: Login,
         navigationOptions: ({ navigation }) => ({
-          title: "Mijn profiel",
+          title: "Login",
         }),
+      },
+      Profile: {
+        screen: Profile,
+       /*  navigationOptions: ({ navigation }) => ({
+          title: "Mijn profiel",
+          headerLeft: null
+        }), */
       }
+
     }),
     navigationOptions: ({ navigation }) => ({
       title: "Profiel",
@@ -87,3 +96,4 @@ const styles = StyleSheet.create({
   },
 });
 
+export default App;
