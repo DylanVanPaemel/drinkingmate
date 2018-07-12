@@ -7,7 +7,7 @@ import {
     Alert
 } from "react-native";
 import authStore from '../stores/auth.store';
-import Profile from '../components/profile.component';
+import Profile from '../screens/Profilescreen';
 
 
 
@@ -16,13 +16,14 @@ export default class Loginscreen extends Component {
 
     email = '';
     password = '';
+    cafe = []
 
     constructor(props) {
         super(props)
         this.state = {
             emailVal: false,
             passwordVal: false,
-            isLoggedIn: false
+            isLoggedIn: false,
         }
         this.signIn = this.signIn.bind(this)
         auth = new authStore();
@@ -32,21 +33,27 @@ export default class Loginscreen extends Component {
     componentDidMount() {
         if (auth.getUser() != null) {
             this.setState({ isLoggedIn: true });
+        } else {
+            this.setState({ isLoggedIn: false });
         }
     }
     signIn() {
-        const { navigate } = this.props.navigation;
+        //const { navigate } = this.props.navigation;
 
         auth.signIn({ email: this.email, password: this.password })
-        console.log(auth.getUser())
         if (auth.getUser() != null) {
-            navigate('Profile')
             this.setState({ isLoggedIn: true });
+            cafe = []
+            cafe = auth.getCafeUser(this.email);
+            this.props.navigation.navigate('Profile', { cafe: cafe });
+        } else {
+            this.setState({ isLoggedIn: false });
         }
 
     }
 
     render() {
+
         if (this.state.isLoggedIn == false) {
             return (
                 <Container>
@@ -75,8 +82,6 @@ export default class Loginscreen extends Component {
                                 </Button>
                             }
                         </Form>
-
-
                     </Content>
                 </Container>
             )
@@ -84,11 +89,10 @@ export default class Loginscreen extends Component {
         else {
             return (
                 <Container>
-                    <Content scrolleabled={false}>
-                        <Profile />
-                    </Content>
-                </Container >
-            )
+                    <Text>U bent al ingelogd</Text>
+                    <Button onPress={() => this.props.navigation.navigate('Profile', { cafe: cafe })}><Text>Terug naar Mijn Profiel </Text></Button>
+                </Container>
+            );
         }
     }
 

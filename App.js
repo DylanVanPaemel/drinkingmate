@@ -26,7 +26,7 @@ class App extends Component {
     this.setState({ loading: false });
   }
 
-  render() {
+  render()  {
 
     if (this.state.loading) {
       return (
@@ -89,14 +89,7 @@ const BottomBar = createBottomTabNavigator({
           gesturesEnabled: false,
         }),
       },
-      Profile: {
-        screen: Profile,
-        /*  navigationOptions: ({ navigation }) => ({
-           title: "Mijn profiel",
-           headerLeft: null
-         }), */
-      }
-
+      Profile: Profile,
     }),
     navigationOptions: ({ navigation }) => ({
       title: "Profiel",

@@ -8,17 +8,20 @@ import firebaseApp from '../database/config'
 
 export default class Profile extends Component {
 
+    constructor(props) {
+        super(props)
+    }
+
     signOut() {
 
         firebaseApp.auth().signOut().then(function () {
             // Sign-out successful.
-            this.authUser=null;
+            this.authUser = null;
         }).catch(function (error) {
             // An error happened.
         });
 
     }
-
 
     render() {
         return (
