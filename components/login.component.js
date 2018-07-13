@@ -12,6 +12,10 @@ export default class Login extends Component {
     email = '';
     password = '';
 
+    static navigationOptions = ({ navigation }) => ({
+        header: null
+      });
+
     constructor(props) {
         super(props)
         this.state = {
